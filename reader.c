@@ -2,5 +2,5 @@
 
 void * read(void* arg)
 {
-    return NULL;
+    return 0;
 }
