@@ -7,6 +7,8 @@ typedef struct cs537_Queue /*Tag for the struct*/
     int head;
     int tail;
     int buffer_size;
+    sem_t edit_lock;
+    sem_t read_wait;
 }Queue;/*Actual struct name*/
 #endif
 

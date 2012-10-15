@@ -13,4 +13,4 @@ main.o: main.c
 	$(CC) $(CFLAGS) -c main.c
 
 queue.o: queue.c
-	$(CC) $(CFLAGS) -c queue.c
+	$(CC) $(CFLAGS) -c queue.c -lpthread
