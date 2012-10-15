@@ -1,6 +1,8 @@
 #include "reader.h"
-
+#include <stdio.h>
 void * read(void* arg)
 {
-    return 0;
+    printf("Hello world!\n");
+
+    return NULL;
 }
