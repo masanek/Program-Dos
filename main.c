@@ -46,6 +46,9 @@ int main()
     munch2Data.output = munch2ToWriter;
     writerData.input = munch2ToWriter;
     writerData.output = NULL;
+
+    /*Some testing*/
+    sync_enqueue(readerToMunch1, "Happy Happy Joy Joy");
     /*Create the four threads*/
     if(pthread_create(&reader, NULL, &read, (void *)&readerData))
     {
@@ -67,6 +70,7 @@ int main()
         printf("Could not create writer\n");
         return -1;
     }
+    
     /*Wait for them to finish*/
     if(pthread_join(reader, NULL) || pthread_join(munch1Thread, NULL) || pthread_join(munch2Thread, NULL) || pthread_join(writerThread, NULL))
     {
