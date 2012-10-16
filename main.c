@@ -1,23 +1,23 @@
 #include <stdio.h>
 #include <pthread.h>
 #include "reader.h"
-#include "queue.h"
+#include "sync_queue.h"
 
 #define MAXBUFFER 3
 
 int main()
 {
-    Queue * q;
-pthread_t reader;
-    q = create(MAXBUFFER);
-    enqueue(q,"Hello");
-enqueue(q,"Hello2");
-    printQueue(q);
-dequeue(q);
-dequeue(q);
-enqueue(q,"Hello3");
-enqueue(q,"False");
-printQueue(q);
+    sync_queue * q;
+    pthread_t reader;
+    q = sync_create(MAXBUFFER);
+    sync_enqueue(q,"Hello");
+    sync_enqueue(q,"Hello2");
+    sync_printQueue(q);
+    sync_dequeue(q);
+    sync_dequeue(q);
+    sync_enqueue(q,"Hello3");
+    sync_enqueue(q,"False");
+    sync_printQueue(q);
 
     /*Create the four threads*/
     if(pthread_create(&reader, NULL, &read, NULL))

@@ -16,7 +16,7 @@ Queue * create(int size)
     return temp_queue;
 }
 
-void destory(Queue * q)
+void destroy(Queue * q)
 {
     free(q->buffer);/*Not sure if this is 100% correct, might want to add lock*/
     free(q);

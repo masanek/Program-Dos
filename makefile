@@ -16,10 +16,10 @@ munch2.o: munch2.c
 	$(CC) $(CFLAGS) -c munch2.c
 
 queue.o: queue.c
-	$(CC) $(CFLAGS) -c queue.c -lpthread
+	$(CC) $(CFLAGS) -c queue.c
 
 sync_queue.o: sync_queue.c
-	$(CC) $(CFLAGS) -c sync_queue.c
+	$(CC) $(CFLAGS) -c sync_queue.c -lpthread
 
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c -lpthread
