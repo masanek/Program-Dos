@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <pthread.h>
-#include "reader.h"
 #include "sync_queue.h"
+#include "reader.h"
 
-#define MAXBUFFER 3
+#define MAXBUFFER 4
 
 int main()
 {
@@ -19,17 +19,19 @@ int main()
     sync_enqueue(q,"False");
     sync_printQueue(q);
 
-    /*Create the four threads*/
+    /*Create the three queue for messaging*/
+
+    /*Create the four threads
     if(pthread_create(&reader, NULL, &read, NULL))
     {
         printf("Could not create thread\n");
         return -1;
     }
-    /*Wait for them to finish*/
+    Wait for them to finish
     if(pthread_join(reader, NULL))
     {
         printf("Could not join thread\n");
         return -1;
-    }
+    }*/
     return 0;
 }

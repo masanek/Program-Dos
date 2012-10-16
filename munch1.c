@@ -1,7 +1,7 @@
+#include "sync_queue.h"
 #include "munch1.h"
-#include "queue.h"
 
-void munch1(Queue * input, Queue * output)
+void munch1(sync_queue * input, sync_queue * output)
 {
    
 }

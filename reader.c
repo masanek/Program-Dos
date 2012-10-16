@@ -1,6 +1,8 @@
-#include "reader.h"
 #include <stdio.h>
-void * read(void* arg)
+#include "sync_queue.h"
+#include "reader.h"
+
+void read(sync_queue * in)
 {
     printf("Hello world!\n");
 
