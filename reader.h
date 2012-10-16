@@ -1,1 +1,1 @@
-void read(sync_queue *);
+void * read(void *);

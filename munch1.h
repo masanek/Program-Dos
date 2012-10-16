@@ -1,1 +1,1 @@
-void munch1(sync_queue *, sync_queue *);
+void * munch1(void *);

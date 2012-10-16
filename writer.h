@@ -1,1 +1,1 @@
-void write(sync_queue *);
+void * write(void *);

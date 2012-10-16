@@ -2,7 +2,7 @@
 #include "sync_queue.h"
 #include "reader.h"
 
-void read(sync_queue * in)
+void * read(void * data)
 {
     printf("Hello world!\n");
 
