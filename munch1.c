@@ -1,16 +1,22 @@
-#include "sync_queue.h"
+#include "thread_data.h"
 #include "munch1.h"
 #include <stdio.h>
-
-struct thread_data
-{
-    sync_queue * input;
-    sync_queue * output;
-};
+#include <strings.h>
 
 void * munch1(void * data)
 {
-   char * message = sync_dequeue(((struct thread_data *) data)->input);
-   printf("%s",message);
+    char * message;
+    char * nextBlank;
+    while(1)
+    {
+        message = sync_dequeue(((thread_data *) data)->input);
+        nextBlank = index(message,' ');
+        while(nextBlank != NULL)
+        {
+            *nextBlank = '*';
+            nextBlank = index(message,' ');
+        }
+        sync_enqueue(((thread_data *) data)->output, message);
+   }
    return NULL;
 }

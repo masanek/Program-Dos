@@ -2,18 +2,13 @@
 #include <pthread.h>
 
 #include "sync_queue.h"
+#include "thread_data.h"
 #include "reader.h"
 #include "munch1.h"
 #include "munch2.h"
 #include "writer.h"
 
 #define MAXBUFFER 4
-
-struct thread_data
-{
-    sync_queue * input;
-    sync_queue * output;
-};
 
 int main()
 {
@@ -28,10 +23,10 @@ int main()
     pthread_t munch2Thread;
     pthread_t writerThread;
     /*Structs for passing multiple arguments to the threads*/
-    struct thread_data readerData;
-    struct thread_data munch1Data;
-    struct thread_data munch2Data;
-    struct thread_data writerData;
+    thread_data readerData;
+    thread_data munch1Data;
+    thread_data munch2Data;
+    thread_data writerData;
     /*Initialize all the queues*/
     readerToMunch1 = sync_create(MAXBUFFER);
     munch1ToMunch2 = sync_create(MAXBUFFER);
@@ -48,7 +43,6 @@ int main()
     writerData.output = NULL;
 
     /*Some testing*/
-    sync_enqueue(readerToMunch1, "Happy Happy Joy Joy");
     /*Create the four threads*/
     if(pthread_create(&reader, NULL, &read, (void *)&readerData))
     {
@@ -77,5 +71,7 @@ int main()
         printf("Could not join thread\n");
         return -1;
     }
+
+    /*Debugging here*/
     return 0;
 }
