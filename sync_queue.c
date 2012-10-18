@@ -25,6 +25,7 @@ void sync_destory(sync_queue * q)
 
 void sync_enqueue(sync_queue * q, char * message)
 {
+    /*Add lock incase its full*/
     sem_wait(&(q->lock));
     enqueue(q->myQueue,message);
     sem_post(&(q->read_wait));

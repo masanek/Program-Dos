@@ -17,6 +17,7 @@ void * write(void * data)
             putchar(message[count]);
             count++;
         }
+        /*This fixes some wierd print issue*/
         putchar('\n');
         /*Free the messages memory*/
         free(message);

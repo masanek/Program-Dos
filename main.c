@@ -73,5 +73,6 @@ int main()
     }
 
     /*Debugging here*/
+    /*Need to tell threads to terminate?*/
     return 0;
 }
