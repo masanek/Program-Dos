@@ -7,7 +7,8 @@ void * munch2(void * data)
 {
     char * message;
     int count;
-    while(1)
+    int done = 1;
+    while(done)
     {
         message = sync_dequeue(((thread_data *) data)->input);
         count = 0;
@@ -19,6 +20,12 @@ void * munch2(void * data)
             }
             count++;
         }
+        if(((thread_data *) data)->input->terminate == 1)
+        {
+            ((thread_data *) data)->output->terminate = 1;
+	    done = 0;
+        }
         sync_enqueue(((thread_data *) data)->output, message);
    }
+   return NULL;
 }

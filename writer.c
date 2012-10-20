@@ -21,6 +21,12 @@ void * write(void * data)
         putchar('\n');
         /*Free the messages memory*/
         free(message);
+	
+        /*Stop running*/
+        if(((thread_data *) data)->input->terminate == 1)
+        {
+	    break;
+        }
     }
     return NULL;
 }

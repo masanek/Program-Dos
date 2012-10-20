@@ -8,7 +8,7 @@
 #include "munch2.h"
 #include "writer.h"
 
-#define MAXBUFFER 4
+#define MAXBUFFER 10
 
 int main()
 {
@@ -29,6 +29,8 @@ int main()
     thread_data writerData;
     /*Initialize all the queues*/
     readerToMunch1 = sync_create(MAXBUFFER);
+    /*Debug set up*/
+    readerToMunch1->debug_toggle = 0;
     munch1ToMunch2 = sync_create(MAXBUFFER);
     munch2ToWriter = sync_create(MAXBUFFER);
     
@@ -42,7 +44,6 @@ int main()
     writerData.input = munch2ToWriter;
     writerData.output = NULL;
 
-    /*Some testing*/
     /*Create the four threads*/
     if(pthread_create(&reader, NULL, &read, (void *)&readerData))
     {
@@ -71,8 +72,9 @@ int main()
         printf("Could not join thread\n");
         return -1;
     }
-
-    /*Debugging here*/
-    /*Need to tell threads to terminate?*/
+    /*If we reached this point we are finished. Clean up the buffers. All the messages will already be freed in the buffers.*/
+    sync_destroy(readerToMunch1);
+    sync_destroy(munch1ToMunch2);
+    sync_destroy(munch2ToWriter);
     return 0;
 }

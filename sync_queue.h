@@ -9,7 +9,14 @@ typedef struct cs537_sync_queue /*Tag for the struct*/
     Queue * myQueue;
     /*Semaphores for syncing*/
     sem_t lock;
+    /*Hand off semaphores*/
     sem_t read_wait;
+    sem_t write_wait;
+    /*Trigger to release the buffer*/
+    int terminate;
+    /*Debug semaphore*/
+    sem_t debug;
+    int debug_toggle;
 }sync_queue;/*Actual struct name*/
 #endif
 
@@ -30,3 +37,6 @@ char * sync_dequeue(sync_queue *);
 
 /*Debugging function for testing Queue, prints the queues contents*/
 void sync_printQueue(sync_queue *);
+
+/*Debugging function for locking and such*/
+void increment_debug(sync_queue * q);
