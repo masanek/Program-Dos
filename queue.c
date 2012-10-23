@@ -7,13 +7,22 @@
 Queue * create(int size)
 {
     Queue * temp_struct = malloc(sizeof(Queue));
-    char ** temp_queue = malloc(sizeof(char*)*size);
-
+    char ** temp_queue;
+    if(temp_struct == NULL)
+    {
+        return NULL;
+    }
+    temp_queue = malloc(sizeof(char*)*size);
+    if(temp_queue == NULL)
+    {
+        free(temp_struct);
+        return NULL;
+    }
     temp_struct->buffer = temp_queue;
     temp_struct->head = 0;
     temp_struct->tail = 0;
     temp_struct->buffer_size = size;
-    
+
     return temp_struct;
 }
 

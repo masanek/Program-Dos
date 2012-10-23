@@ -18,6 +18,13 @@ void * read(void * data)
         EOF_trigger = 0;
         /*Allocate the next message*/
         word = malloc(sizeof(char)*64);
+	if(word == NULL)
+        {
+            /*signal we are finish b.c memory error*/
+	    printf("Memory Issue");
+            sync_enqueue(((thread_data *) data)->output, NULL);
+            return NULL;
+        }
         /*Read in the message*/
         for(count = 0; count < 63; count++)
         {

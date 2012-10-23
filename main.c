@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
 
 #include "sync_queue.h"
@@ -9,6 +10,16 @@
 #include "writer.h"
 
 #define MAXBUFFER 10
+
+void cleanUp(sync_queue * q)
+{
+    if(q!=NULL)
+    {
+        free(q->myQueue->buffer);
+	free(q->myQueue);
+	free(q);
+    }
+}
 
 int main()
 {
@@ -32,6 +43,14 @@ int main()
     munch1ToMunch2 = sync_create(MAXBUFFER);
     munch2ToWriter = sync_create(MAXBUFFER);
     
+    if(readerToMunch1 == NULL || munch1ToMunch2 == NULL || munch2ToWriter == NULL)
+    {
+        cleanUp(readerToMunch1);
+        cleanUp(munch1ToMunch2);
+        cleanUp(munch2ToWriter);
+	printf("Memory issue");
+	return -1;
+    }
     /*Set up argument structs*/
     readerData.input = NULL;
     readerData.output = readerToMunch1;

@@ -7,8 +7,16 @@
 sync_queue * sync_create(int size)
 {
     sync_queue * sync_temp = malloc(sizeof(sync_queue));
+    if(sync_temp == NULL)
+    {
+        return NULL;
+    }
     sync_temp->myQueue = create(size);
-    
+    if(sync_temp->myQueue == NULL)
+    {
+        free(sync_temp);
+        return NULL;
+    }
     sem_init(&(sync_temp->read_wait), 0, 0);
     sem_init(&(sync_temp->write_wait), 0, size);
     return sync_temp;
