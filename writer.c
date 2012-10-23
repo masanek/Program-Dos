@@ -4,6 +4,7 @@
 #include "thread_data.h"
 #include "writer.h"
 
+/*Reads from munch2 and outputs the final message*/
 void * write(void * data)
 {
     char * message;
@@ -24,6 +25,7 @@ void * write(void * data)
 	}
         else
         {
+	    /*Null message encountered, free up memory and exit*/
             printf("%s - %i\n", "Total Number of messages printed", count);
 	    done = 0;
 	    free(((thread_data *) data)->input->myQueue->buffer);

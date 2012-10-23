@@ -1,14 +1,11 @@
 #include "queue.h"
 #include <semaphore.h>
-#include <pthread.h>
 /*Define our queue struct, but not twice*/
 #ifndef cs537_sync_queue
 #define cs537_sync_queue
 typedef struct cs537_sync_queue /*Tag for the struct*/
 { 
     Queue * myQueue;
-    /*Semaphores for syncing*/
-    sem_t lock;
     /*Hand off semaphores*/
     sem_t read_wait;
     sem_t write_wait;

@@ -3,6 +3,7 @@
 
 #include "queue.h"
 
+/*Allocates all necessary memory for queue management*/
 Queue * create(int size)
 {
     Queue * temp_struct = malloc(sizeof(Queue));
@@ -16,13 +17,13 @@ Queue * create(int size)
     return temp_struct;
 }
 
-/*How to handle enqueue more then the buffer size? caller or here?*/
+/*Enqueues a message. This doesnt care if there is over flow*/
 void enqueue(Queue * q, char * message)
 {
     (q->buffer)[(q->tail)] = message;
     q->tail = (q->tail+1)%(q->buffer_size);
 }
-
+/*Dequeue the next message and returns the string. Doesnt worry if empty*/
 char * dequeue(Queue * q)
 {
     char * message;

@@ -1,0 +1,8 @@
+Tim Lancina - lancina@wisc.edu
+Michael Masanek - masanek@wisc.edu
+
+Lines that contain null bytes anywhere are rejected.
+
+Empty lines (just \n or EOF) are  not considered lines by writer.
+
+EOF that comes after 63 characters will end execution.

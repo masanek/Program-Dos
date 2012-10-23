@@ -4,6 +4,7 @@
 #include "thread_data.h"
 #include "reader.h"
 
+/*Thread for reading input*/
 void * read(void * data)
 {   
     int EOF_trigger = 0;
@@ -46,8 +47,11 @@ void * read(void * data)
                 null_trigger=1;
             }
         }
+        /*Handle end of file*/
         if(next==EOF)
         {   
+            if(count != 0)
+	    	putchar('\n');
             EOF_trigger = 1;
         }
         /*Put the message on the queue if everything went ok*/
@@ -62,7 +66,7 @@ void * read(void * data)
 	    free(word);
 	}
 	if(EOF_trigger == 1)
-	{
+	{/*Send off a null message indicating terminations*/
 	    sync_enqueue(((thread_data *) data)->output, NULL);
 	}
     }
