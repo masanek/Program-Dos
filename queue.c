@@ -5,21 +5,15 @@
 
 Queue * create(int size)
 {
-    Queue * temp_queue = malloc(sizeof(Queue));
-    char ** temp_buffer = malloc(sizeof(char*)*size);
+    Queue * temp_struct = malloc(sizeof(Queue));
+    char ** temp_queue = malloc(sizeof(char*)*size);
 
-    temp_queue->buffer = temp_buffer;
-    temp_queue->head = 0;
-    temp_queue->tail = 0;
-    temp_queue->buffer_size = size;
+    temp_struct->buffer = temp_queue;
+    temp_struct->head = 0;
+    temp_struct->tail = 0;
+    temp_struct->buffer_size = size;
     
-    return temp_queue;
-}
-
-void destroy(Queue * q)
-{
-    free(q->buffer);/*Not sure if this is 100% correct, might want to add lock*/
-    free(q);
+    return temp_struct;
 }
 
 /*How to handle enqueue more then the buffer size? caller or here?*/

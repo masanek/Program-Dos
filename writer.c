@@ -1,31 +1,34 @@
-#include "thread_data.h"
-#include "writer.h"
-
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "thread_data.h"
+#include "writer.h"
 
 void * write(void * data)
 {
     char * message;
-    int count;
-    while(1)
+    int count = 0;
+    int done = 1;
+    while(done == 1)
     {
         message = sync_dequeue(((thread_data *) data)->input);
-        count = 0;
-        while(message[count] != '\0')
+	if(message != NULL)
         {
-            putchar(message[count]);
-            count++;
-        }
-        /*This fixes some wierd print issue*/
-        putchar('\n');
-        /*Free the messages memory*/
-        free(message);
-	
-        /*Stop running*/
-        if(((thread_data *) data)->input->terminate == 1)
+	    if (*message != '\0') 
+	    {
+	        printf("%s\n", message);
+	        count++;
+	    }
+            /*Free the messages memory*/
+            free(message);
+	}
+        else
         {
-	    break;
+            printf("%s - %i\n", "Total Number of messages printed", count);
+	    done = 0;
+	    free(((thread_data *) data)->input->myQueue->buffer);
+	    free(((thread_data *) data)->input->myQueue);
+	    free(((thread_data *) data)->input);
         }
     }
     return NULL;

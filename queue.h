@@ -14,9 +14,6 @@ typedef struct cs537_Queue /*Tag for the struct*/
 and will return the point to the allocated Queue*/
 Queue * create(int);
 
-/*Properly clean up the queue's memory*/
-void destroy(Queue *);
-
 /*This will add the new message to the Queue only
 if there is space*/
 void enqueue(Queue *,char*);

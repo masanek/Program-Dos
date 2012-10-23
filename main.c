@@ -29,8 +29,6 @@ int main()
     thread_data writerData;
     /*Initialize all the queues*/
     readerToMunch1 = sync_create(MAXBUFFER);
-    /*Debug set up*/
-    readerToMunch1->debug_toggle = 0;
     munch1ToMunch2 = sync_create(MAXBUFFER);
     munch2ToWriter = sync_create(MAXBUFFER);
     
@@ -72,9 +70,5 @@ int main()
         printf("Could not join thread\n");
         return -1;
     }
-    /*If we reached this point we are finished. Clean up the buffers. All the messages will already be freed in the buffers.*/
-    sync_destroy(readerToMunch1);
-    sync_destroy(munch1ToMunch2);
-    sync_destroy(munch2ToWriter);
     return 0;
 }

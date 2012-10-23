@@ -1,24 +1,30 @@
 #include "thread_data.h"
 #include "munch1.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <strings.h>
 
 void * munch1(void * data)
 {
     char * message;
     int done = 1;
-    while(done)
+    while(done == 1)
     {
         message = sync_dequeue(((thread_data *) data)->input);
-        /*Replace spaces and tabs with **/
-        replaceWithStar(message,' ');
-        replaceWithStar(message,(char)9);
-        if(((thread_data *) data)->input->terminate == 1)
-        {
-            ((thread_data *) data)->output->terminate = 1;
+        /*Replace spaces and tabs with * */
+	if(message != NULL)
+	{
+            replaceWithStar(message,' ');
+            replaceWithStar(message,(char)9);
+	}
+	else
+	{
 	    done = 0;
-        }
-        sync_enqueue(((thread_data *) data)->output, message);
+	    free(((thread_data *) data)->input->myQueue->buffer);
+	    free(((thread_data *) data)->input->myQueue);
+	    free(((thread_data *) data)->input);
+	}
+	sync_enqueue(((thread_data *) data)->output, message);
    }
    return NULL;
 }

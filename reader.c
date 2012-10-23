@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "thread_data.h"
 #include "reader.h"
 
@@ -10,9 +11,6 @@ void * read(void * data)
     int count;
     char * word;
     char next;
-
-    /*debug count*/
-    int debugC = 0;
     while(0 == EOF_trigger)
     {
         null_trigger = 0;
@@ -46,7 +44,6 @@ void * read(void * data)
             if('\0' == next)
             {
                 null_trigger=1;
-                break;
             }
         }
         if(next==EOF)
@@ -56,21 +53,18 @@ void * read(void * data)
         /*Put the message on the queue if everything went ok*/
         if(0 == null_trigger)
         {
-            debugC++;
             word[count] = '\0';
-            if(EOF_trigger)
-	    {   /*Tell the next person we are finished*/
-	        ((thread_data *) data)->output->terminate = 1;
-            }
             sync_enqueue(((thread_data *) data)->output, word);
         }
-        if(debugC==5)
-        {
-            for(debugC=5; debugC>0; debugC--)
-            {
-                 increment_debug(((thread_data *) data)->output);     
-            }
-        }
+        else
+	{
+	    printf("null byte encountered, line ignored\n");
+	    free(word);
+	}
+	if(EOF_trigger == 1)
+	{
+	    sync_enqueue(((thread_data *) data)->output, NULL);
+	}
     }
     return NULL;
 }

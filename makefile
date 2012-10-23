@@ -1,6 +1,6 @@
 # Makefile for executable proj2
 CC = gcc
-CFLAGS = -pedantic -Wall
+CFLAGS = -g -pedantic -Wall
 
 # ****************************************************
 proj2: main.o reader.o queue.o sync_queue.o writer.o munch1.o munch2.o
@@ -26,3 +26,6 @@ sync_queue.o: sync_queue.c
 
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c -lpthread
+
+clean:
+	rm main.o reader.o queue.o sync_queue.o writer.o munch1.o munch2.o
